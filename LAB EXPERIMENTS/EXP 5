@@ -1,0 +1,25 @@
+#include <stdio.h>
+
+int main() {
+    char s[1000];
+    int i = 0, spaces = 0, newlines = 0;
+
+    printf("Enter text (use # to stop):\n");
+
+    while ((s[i] = getchar()) != '#') {
+        if (s[i] == ' ' || s[i] == '\t')
+            spaces++;
+
+        if (s[i] == '\n')
+            newlines++;
+
+        i++;
+        if (i >= 999)
+            break;
+    }
+
+    printf("Number of whitespaces: %d\n", spaces);
+    printf("Number of newline characters: %d\n", newlines);
+
+    return 0;
+}
