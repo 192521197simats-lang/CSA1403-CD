@@ -1,0 +1,43 @@
+#include <stdio.h>
+
+int main() {
+    char s[1000];
+    int i = 0, j = 0;
+    int lineComment = 0, blockComment = 0;
+
+    printf("Enter a line of code:\n");
+    fgets(s, sizeof(s), stdin);
+
+    while (s[i] != '\0') {
+        if (lineComment)
+            break;
+
+        if (blockComment) {
+            if (s[i] == '*' && s[i + 1] == '/') {
+                blockComment = 0;
+                i += 2;
+            } else {
+                i++;
+            }
+        }
+        else if (s[i] == '/' && s[i + 1] == '/') {
+            lineComment = 1;
+        }
+        else if (s[i] == '/' && s[i + 1] == '*') {
+            blockComment = 1;
+            i += 2;
+        }
+        else if (s[i] == ' ' || s[i] == '\t' ||
+                 s[i] == '\n') {
+            i++;
+        }
+        else {
+            s[j++] = s[i++];
+        }
+    }
+
+    s[j] = '\0';
+    printf("After removing spaces and comments:\n%s\n", s);
+
+    return 0;
+}
